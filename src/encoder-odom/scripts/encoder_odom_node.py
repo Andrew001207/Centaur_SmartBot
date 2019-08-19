@@ -5,7 +5,7 @@ from std_msgs.msg import String
 from geometry_msgs.msg import Vector3
 import tf
 
-pos = Transform()
+pos = Vector3()
 
 def encoder_callback(data):
     rospy.loginfo(rospy.get_caller_id() + "ACK encoder info")
