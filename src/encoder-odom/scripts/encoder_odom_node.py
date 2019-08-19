@@ -11,7 +11,7 @@ def encoder_callback(data):
     rospy.loginfo(rospy.get_caller_id() + "ACK encoder info")
     pos.x += data.x
     pos.y += data.y
-    pos.rotation = qu
+    pos.z = 0
     pub.publish(pos)
 
 
