@@ -7,7 +7,7 @@ from geometry_msgs.msg import Vector3, Transform
 pos = Transform()
 
 def encoder_callback(data):
-    rospy.loginfo(rospy.get_caller_id() + "ACK encoder info", data.data)
+    rospy.loginfo(rospy.get_caller_id() + "ACK encoder info")
     pos.translation.x += data.x
     pos.translation.y += data.y
     pub.publish(pos)
