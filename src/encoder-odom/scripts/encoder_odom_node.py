@@ -2,21 +2,23 @@
 
 import rospy
 from std_msgs.msg import String
-from geometry_msgs.msg import Vector3, Transform
+from geometry_msgs.msg import Vector3
+import tf
 
 pos = Transform()
 
 def encoder_callback(data):
     rospy.loginfo(rospy.get_caller_id() + "ACK encoder info")
-    pos.translation.x += data.x
-    pos.translation.y += data.y
+    pos.x += data.x
+    pos.y += data.y
+    pos.rotation = qu
     pub.publish(pos)
 
 
 if __name__ == '__main__':
     try:
         rospy.init_node('odometry', anonymous=False)
-        pub = rospy.Publisher('/odom', Transform, queue_size=10)
+        pub = rospy.Publisher('/odom', Vector3, queue_size=10)
         rospy.Subscriber("/sensors/wheel_encoder", Vector3, encoder_callback)
         rate = rospy.Rate(10) # 10hz
         while not rospy.is_shutdown():
