@@ -1,17 +1,25 @@
 #!/usr/bin/env python
 
 import rospy
+from math import sin, cos
 from std_msgs.msg import String
 from geometry_msgs.msg import Vector3
 import tf
 
-pos = Vector3()
+L = 0.185
+R = 0.029
+steps_per_m=1/(0.182/80)
+
+
+pos = Vector3(0,0,0)
 
 def encoder_callback(data):
-    rospy.loginfo(rospy.get_caller_id() + "ACK encoder info")
-    pos.x += data.x
-    pos.y += data.y
-    pos.z = 0
+    Dl=data.x*steps_per_m
+    Dr=data.y*steps_per_m
+    Dc=(Dl+Dr)/2
+    pos.x += Dc*cos(pos.z)
+    pos.y += Dc*sin(pos.z)
+    pos.z = (Dr-Dl)/L
     pub.publish(pos)
 
 
