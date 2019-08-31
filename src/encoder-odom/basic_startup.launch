@@ -3,8 +3,8 @@
 
     <node name="serial_node" pkg="rosserial_python" type="serial_node.py"/>
         <param name="port" value="/dev/ttyUSB0" />
-
-    <node name="joy_node" pkg="joy">
+    </node>
+    <node name="joy_node" pkg="joy" type="joy_node"/>
     </node>
 
   </group>
