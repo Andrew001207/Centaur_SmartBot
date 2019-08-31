@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 
 import rospy
-from math import sin, cos
+from math import sin, cos, tan, atan
 from std_msgs.msg import String
 from geometry_msgs.msg import Vector3
 import tf
@@ -20,6 +20,7 @@ def encoder_callback(data):
     pos.x += Dc*cos(pos.z)
     pos.y += Dc*sin(pos.z)
     pos.z = (Dr-Dl)/L
+    pos.z = atan(tan(pos.z))
     pub.publish(pos)
 
 
