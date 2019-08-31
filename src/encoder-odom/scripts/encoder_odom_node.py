@@ -20,7 +20,6 @@ def encoder_callback(data):
     pos.x += Dc*cos(pos.z)
     pos.y += Dc*sin(pos.z)
     pos.z += (Dr-Dl)/L
-    pos.z = atan(tan(pos.z))
     pub.publish(pos)
 
 
