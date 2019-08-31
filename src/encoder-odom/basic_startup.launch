@@ -1,12 +1,14 @@
 <launch>
-  <group ns="wg"> 
 
-    <node name="serial_node" pkg="rosserial_python" type="serial_node.py"/>
-        <param name="port" value="/dev/ttyUSB0" />
+    <node name="serial_node" pkg="rosserial_python" type="serial_node.py">
+        <param name="port" value="/dev/ttyUSB0"/>
     </node>
-    <node name="joy_node" pkg="joy" type="joy_node"/>
+    <node name="joy_node" pkg="joy" type="joy_node">
+        <param name="dev" value="/dev/input/js0"/>
     </node>
-
-  </group>
+    <node name="controller" pkg="controller" type="talker.py">
+    </node>
+    <node name="odometry" pkg="encoder-odom" type="encoder_odom_node.py">
+    </node>
   
 </launch>
