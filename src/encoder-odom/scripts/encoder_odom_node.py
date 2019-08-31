@@ -14,8 +14,8 @@ steps_per_m=1/(0.182/80)
 pos = Vector3(0,0,0)
 
 def encoder_callback(data):
-    Dl=data.x*steps_per_m
-    Dr=data.y*steps_per_m
+    Dl=data.x/steps_per_m
+    Dr=data.y/steps_per_m
     Dc=(Dl+Dr)/2
     pos.x += Dc*cos(pos.z)
     pos.y += Dc*sin(pos.z)
