@@ -9,15 +9,14 @@ import csv
 i = 0
 
 def las_callback(data):
-    rospy.loginfo('writing frame {}'.format(i))
-    i+=1
-    with open('lidar.csv', mode='w') as csv_file:
-        csv_writer = csv.writer(csv_file, delimiter=',', quotechar='"', quoting=csv.QUOTE_MINIMAL)
-        employee_writer.writerow([*data.ranges])
+    rospy.loginfo('writing frame ')
+    csv_writer = csv.writer(csv_file, delimiter=',', quotechar='"', quoting=csv.QUOTE_MINIMAL)
+    csv_writer.writerow(list(data.ranges))
 
 
 if __name__ == '__main__':
     try:
+        csv_file = open('lidar.csv', mode='w')
         rospy.init_node('lidar_logger', anonymous=False)
         pub = rospy.Publisher('/ad_scan', LaserScan, queue_size=10)
         rospy.Subscriber("/scan", LaserScan, las_callback)
