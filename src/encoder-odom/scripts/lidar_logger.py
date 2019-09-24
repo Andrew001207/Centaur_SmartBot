@@ -18,6 +18,7 @@ if __name__ == '__main__':
         rospy.init_node('lidar_logger', anonymous=False)
         pub = rospy.Publisher('/ad_scan', LaserScan, queue_size=10)
         rospy.Subscriber("/scan", LaserScan, las_callback)
+        rospy.loginfo("INIT")
         rate = rospy.Rate(10) # 10hz
         while not rospy.is_shutdown():
             rate.sleep()
