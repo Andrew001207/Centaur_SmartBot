@@ -6,11 +6,14 @@ from sensor_msgs.msg import LaserScan
 import os
 import csv
 
+i = 0
+
 def las_callback(data):
-    rospy.loginfo(data.ranges)
-    # with open('lidar.csv', mode='w') as csv_file:
-    #     csv_writer = csv.writer(csv_file, delimiter=',', quotechar='"', quoting=csv.QUOTE_MINIMAL)
-    #     employee_writer.writerow(['John Smith', 'Accounting', 'November'])
+    rospy.loginfo('writing frame {}'.format(i))
+    i+=1
+    with open('lidar.csv', mode='w') as csv_file:
+        csv_writer = csv.writer(csv_file, delimiter=',', quotechar='"', quoting=csv.QUOTE_MINIMAL)
+        employee_writer.writerow([*data.ranges])
 
 
 if __name__ == '__main__':
