@@ -7,15 +7,12 @@ from sensor_msgs.msg import LaserScan
 from geometry_msgs.msg import Vector3
 
 def interpolate_arr(frm):
-    enum_frame = enumerate(frm)
-    enum_frame = list(filter(lambda x: x[1] > 0, enum_frame))
+    enum_frame = list(filter(lambda x: x[1] > 0, enumerate(frm)))
     xp = [x[0] for x in enum_frame]
     fp = [x[1] for x in enum_frame]
-    a = [np.interp(i , xp, fp,period=360) for i in range(360)]
-    rospy.loginfo(a)
-    return a
-
+    return [np.interp(i , xp, fp,period=360) for i in range(360)]
 def encoder_callback(data):
+    data.ranges = map(lambda x: 0 if x == math.inf else x, data.ranges)
     data.ranges = interpolate_arr(data.ranges)
     pub.publish(data)
 
