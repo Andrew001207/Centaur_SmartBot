@@ -8,11 +8,12 @@ from geometry_msgs.msg import Vector3
 
 def interpolate_arr(frm):
     enum_frame = enumerate(frm)
-    rospy.loginfo(frm)
     enum_frame = list(filter(lambda x: x[1] > 0, enum_frame))
     xp = [x[0] for x in enum_frame]
     fp = [x[1] for x in enum_frame]
-    return [np.interp(i , xp, fp,period=360) for i in range(360)]
+    a = [np.interp(i , xp, fp,period=360) for i in range(360)]
+    rospy.loginfo(a)
+    return a
 
 def encoder_callback(data):
     data.ranges = interpolate_arr(data.ranges)
