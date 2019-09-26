@@ -8,14 +8,15 @@ from geometry_msgs.msg import Vector3
 
 def interpolate_arr(frm):
     enum_frame = enumerate(frm)
+    rospy.loginfo(frm)
     enum_frame = list(filter(lambda x: x[1] > 0, enum_frame))
     xp = [x[0] for x in enum_frame]
     fp = [x[1] for x in enum_frame]
     return [np.interp(i , xp, fp,period=360) for i in range(360)]
 
 def encoder_callback(data):
-    int_frame = LaserScan(ranges = interpolate_arr(data.ranges), range_min = 0.15, range_max = 8.0, scan_time = data.scan_time)
-    pub.publish(int_frame)
+    data.ranges = interpolate_arr(data.ranges)
+    pub.publish(data)
 
 if __name__ == '__main__':
     try:
