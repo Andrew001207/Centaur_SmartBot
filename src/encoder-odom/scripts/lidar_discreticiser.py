@@ -9,7 +9,7 @@ from sensor_msgs.msg import LaserScan
 div = 5
 
 def encoder_callback(data):
-    frame = data.ranges[:180]
+    frame = data.ranges[90:270]
     resp = Float32MultiArray()
     for i in range(div):
         sf = filter (lambda x: x < data.range_max, frame[(i * len(frame)/5) : ((i+1) * len(frame)/5)])
