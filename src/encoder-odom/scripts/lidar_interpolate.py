@@ -12,7 +12,7 @@ def interpolate_arr(frm):
     fp = [x[1] for x in enum_frame]
     return [np.interp(i , xp, fp,period=360) for i in range(360)]
 def encoder_callback(data):
-    data.ranges = map(lambda x: 0 if x == math.inf else x, data.ranges)
+    data.ranges = map(lambda x: 0 if x >= data.range_max else x, data.ranges)
     data.ranges = interpolate_arr(data.ranges)
     pub.publish(data)
 
