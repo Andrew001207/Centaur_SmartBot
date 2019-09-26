@@ -12,7 +12,8 @@ def encoder_callback(data):
     frame = data.ranges[:180]
     resp = Float32MultiArray()
     for i in range(div):
-        resp.data.append(np.mean(frame[(i * len(frame)/5) : ((i+1) * len(frame)/5)]))
+        sf = filter (lambda x: x < math.inf, frame[(i * len(frame)/5) : ((i+1) * len(frame)/5)])
+        resp.data.append(np.mean(sf))
     pub.publish(resp)
 
 if __name__ == '__main__':
