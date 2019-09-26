@@ -14,8 +14,8 @@ def interpolate_arr(frm):
     return [np.interp(i , xp, fp,period=360) for i in range(360)]
 
 def encoder_callback(data):
-    data.ranges = interpolate_arr(data.ranges)
-    pub.publish(data)
+    int_frame = LaserScan(ranges = interpolate_arr(data.ranges), range_min = 0.15, range_max = 8.0, scan_time = data.scan_time)
+    pub.publish(int_frame)
 
 if __name__ == '__main__':
     try:
