@@ -19,7 +19,7 @@ def control_func(data):
 if __name__ == '__main__':
     try:
         rospy.loginfo("LidarLogger started!")
-        rospy.init_node('las_meas', anonymous=False)
+        rospy.init_node('algorithm', anonymous=False)
         pub = rospy.Publisher('/cmd_vel', Vector3, queue_size=10)
         rospy.Subscriber("/scan_d", Float32MultiArray, control_func)
         rate = rospy.Rate(10) # 10hz
