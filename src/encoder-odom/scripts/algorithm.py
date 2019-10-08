@@ -1,9 +1,10 @@
+#!/usr/bin/env python
+
 import rospy
 import math
 import numpy as np
-from std_msgs.msg import Float32MultiArray, Vector3
-
-div = 5
+from std_msgs.msg import Float32MultiArray
+from geometry_msgs.msg import Vector3
 
 def control_func(data):
     resp = Vector3()
@@ -15,7 +16,7 @@ if __name__ == '__main__':
     try:
         rospy.loginfo("LidarLogger started!")
         rospy.init_node('las_meas', anonymous=False)
-        pub = rospy.Publisher('/cmd_vel', Float32MultiArray, queue_size=10)
+        pub = rospy.Publisher('/cmd_vel', Vector3, queue_size=10)
         rospy.Subscriber("/scan_d", Float32MultiArray, control_func)
         rate = rospy.Rate(10) # 10hz
         while not rospy.is_shutdown():
