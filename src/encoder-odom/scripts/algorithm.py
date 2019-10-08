@@ -8,8 +8,12 @@ from geometry_msgs.msg import Vector3
 
 def control_func(data):
     resp = Vector3()
-    resp.x = 1.0
-    resp.y = 1.0
+    if data.data[2] < 1.0:
+        resp.x = -1.0
+        resp.y = -1.0
+    else:
+        resp.x = 0
+        resp.y = 0
     pub.publish(resp)
 
 if __name__ == '__main__':
